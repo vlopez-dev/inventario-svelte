@@ -1,6 +1,7 @@
 <script>
  import Nav from "./routes/Nav.svelte";
  import Dash from "./routes/Dash.svelte";
+ import Aside from "./routes/Aside.svelte";
 </script>
 
 
@@ -8,7 +9,8 @@
 
     <Dash>
     </Dash>
-
+    <Nav></Nav>
+    <Aside></Aside>
 
 <style>
   
