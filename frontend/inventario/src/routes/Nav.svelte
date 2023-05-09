@@ -17,13 +17,7 @@
   <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
     <div class="navbar-end">
       <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
-        <a class="navbar-link is-arrowless">
-          <span class="icon"><i class="mdi mdi-menu"></i></span>
-          <span>Sample Menu</span>
-          <span class="icon">
-          <i class="mdi mdi-chevron-down"></i>
-        </span>
-        </a>
+     
         <div class="navbar-dropdown">
           <a href="profile.html" class="navbar-item">
             <span class="icon"><i class="mdi mdi-account"></i></span>
