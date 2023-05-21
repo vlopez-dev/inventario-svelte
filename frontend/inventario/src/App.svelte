@@ -1,16 +1,30 @@
 <script>
  import Nav from "./routes/Nav.svelte";
- import Dash from "./routes/Dash.svelte";
- import Aside from "./routes/Aside.svelte";
+ import AreaAgr from "./routes/Area/AreaAgr.svelte";
+ import ArticuloAgr from "./routes/Articulos/ArticuloAgr.svelte";
+ import Home from "./routes/Home.svelte";
+ import Router from 'svelte-spa-router'
+
+
+ let routes={
+   "/": Home,
+   "/AreaAgr": AreaAgr,
+   "/ArticuloAgr": ArticuloAgr
+ }
 </script>
 
 
+    <Nav
+    item1="Home"
+    item2="Agregar"
+    item3="Agregar"
+    ></Nav>
+
+    <Router {routes}></Router>
 
 
-    <Dash>
-    </Dash>
-    <Nav></Nav>
-    <Aside></Aside>
+
+
 
 <style>
   
