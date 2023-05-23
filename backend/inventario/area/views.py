@@ -21,8 +21,3 @@ class AreaViewSet(viewsets.ModelViewSet):
             return response(serializer.data,status=201)
         return response(serializer.errors,status=400)
     
-    def deleteArea(self,request,pk):
-        area = Area.objects.get(id=pk)
-        area.delete()
-        return response(status=204)
-        
