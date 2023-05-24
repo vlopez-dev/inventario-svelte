@@ -1,7 +1,7 @@
 from urllib import response
 from django.shortcuts import render
-from .models import Articulo
-from .serializer import ArticuloSerializer
+from .models import Articulo,Tipo
+from .serializer import ArticuloSerializer,TipoSerializer
 from rest_framework import viewsets
 
 # Create your views here.
@@ -25,5 +25,10 @@ class ArticuloViewSet(viewsets.ModelViewSet):
         articulo = Articulo.objects.get(id=pk)
         articulo.delete()
         return response(status=204)
-        
+
+class TipoViewSet(viewsets.ModelViewSet):
+    queryset = Tipo.objects.all()
+    serializer_class = TipoSerializer
+    template_name = 'tipo/index.html'
+
 # Create your views here.

@@ -1,6 +1,6 @@
 
 <script>
-  export let item1,item2,item3,item4,item5
+  export let item1,item2,item3,item4,item5,item6
 </script>
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
@@ -43,9 +43,7 @@
         <div class="navbar-dropdown">
           <a href="#/ArticuloAgr" class="navbar-item">{item3}</a>
           <a href="#/ListArt" class="navbar-item">{item4}</a>
-          <a class="navbar-item">
-            Contact
-          </a>
+          <a href="#/TiposAgr" class="navbar-item">{item6}</a>
           <hr class="navbar-divider">
           <a class="navbar-item">
             Report an issue

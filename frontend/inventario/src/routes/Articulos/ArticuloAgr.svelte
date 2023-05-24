@@ -1,12 +1,32 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
+    import bulmaCalendar from "bulma-calendar";
+
+    onMount(() => {
+       const calendar = bulmaCalendar.attach(".datepicker", {
+         startDate: new Date(),
+         dateFormat: "yyyy-mm-dd",
+         showHeader: false,
+         showFooter: false,
+         displayMode: "inline",
+         isRange: false,
+       });
+     });
+
+
+
     let nombre = '';
     let descripcion = '';
     let cantidad = 0;
     let imagen = null;
     let desechable = 0;
     let tipo_articulo = '';
+    let fecha_compra = '';
+    let precio = 0;
     
+
+
+
 
   async function handleSubmit() {
     
@@ -17,6 +37,8 @@
       formData.append('cantidad', cantidad);
       formData.append('imagen', imagen);
       formData.append('desechable', desechable);
+      formData.append('fecha_compra',fecha_compra)
+      formData.append('precio',precio)
       formData.append('tipo_articulo', tipo_articulo);
 
       const response = await fetch('http://localhost:8001/articulo/articulo/', {
@@ -26,15 +48,39 @@
 
       if (response.ok) {
         console.log("El formulario se guardó exitosamente")
-        // Puedes realizar alguna acción aquí, como redirigir a una página de éxito
       } else {
         console.log("Ocurrió un error al guardar el formulario")
-        // Puedes manejar el error de acuerdo a tus necesidades
       }
     } catch (error) {
-      // Manejar errores de la solicitud
+      console.log(error);
     }
   }
+
+
+  // Funcion para traer la lista de los tipos de articulos
+
+
+let tipos = [];
+
+onMount(async () => {
+fetch("http://localhost:8001/tipo/tipo/")
+.then((response) => response.json())
+.then((data) => {
+  tipos = data;
+  console.log(tipos);
+  // console.log(data);
+})
+.catch((error) => {
+  console.log(error);
+  return [];
+});
+});
+
+
+
+
+
+
     
     </script>
     <section class="hero is-fullheight custom-component  " >
@@ -67,18 +113,30 @@
           <textarea class="textarea" placeholder="Descripcion" bind:value={descripcion}></textarea>
         </div>
         <div class="field">
-          <input class="input is-small" type="text" placeholder="Cantidad">
+          <input class="input is-small" type="number" placeholder="Cantidad">
+        </div>
+
+        <div class="select is-primary">
+          <select>
+            <option>Tipos</option>
+            {#each tipos as tipo}
+            <option>{tipo.nombre}</option>
+            {/each}
+          </select>
         </div>
         <div class="field">
-          <input class="input" type="text" placeholder="Text input"bind:value={tipo_articulo}>
-
+          <input type="date" class="datetimepicker" placeholder="Fecha">
         </div>
       <div class="field">
         <label class="checkbox">
           <input type="checkbox" bind:value={desechable}>
-          Remember me
         </label>
       </div>
+      <div class="field">
+        <input type="text" placeholder="Precio">
+      </div>
+
+
         <div class="filed">
         <div class="file">
           <label class="file-label">
@@ -88,7 +146,7 @@
                 <i class="fas fa-upload"></i>
               </span>
               <span class="file-label">
-                Choose a file…
+                Seleccionar imagen
               </span>
             </span>
           </label>
@@ -116,4 +174,8 @@
     
       </div>
     </section>
-    <style></style>
+    <style>
+
+
+
+    </style>

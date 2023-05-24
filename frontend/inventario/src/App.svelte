@@ -4,6 +4,7 @@
  import ListArea from "./routes/Area/ListArea.svelte";
  import ArticuloAgr from "./routes/Articulos/ArticuloAgr.svelte";
  import ListArt from "./routes/Articulos/ListArt.svelte";
+ import TiposAgr from "./routes/Articulos/TiposAgr.svelte";
  import Home from "./routes/Home.svelte";
  import Router from 'svelte-spa-router'
 
@@ -13,6 +14,7 @@
    "/AreaAgr": AreaAgr,
    "/ArticuloAgr": ArticuloAgr,
    "/ListArt": ListArt,
+   "/TiposAgr": TiposAgr,
    "/ListArea":ListArea,
    }
 </script>
@@ -24,6 +26,7 @@
     item3="Agregar"
     item4 ="Listar Articulos"
     item5= "Listar Areas"
+    item6= "Agregar Tipos"
     ></Nav>
 
     <Router {routes}></Router>

@@ -9,10 +9,13 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'articulo', views.ArticuloViewSet)
+router.register(r'tipo', views.TipoViewSet)
+
 
 
 urlpatterns = [
     path('', include(router.urls)),
+    # path('tipos/', views.TipoViewSet, name='tipos-list'),
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     
 
