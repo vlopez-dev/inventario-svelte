@@ -22,8 +22,8 @@
 
     <Nav
     item1="Home"
-    item2="Agregar"
-    item3="Agregar"
+    item2="Agregar Area"
+    item3="Agregar Articulos"
     item4 ="Listar Articulos"
     item5= "Listar Areas"
     item6= "Agregar Tipos"

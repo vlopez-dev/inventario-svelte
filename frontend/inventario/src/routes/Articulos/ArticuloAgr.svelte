@@ -1,11 +1,12 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import bulmaCalendar from "bulma-calendar";
+  import { element } from 'svelte/internal';
 
     onMount(() => {
        const calendar = bulmaCalendar.attach(".datepicker", {
          startDate: new Date(),
-         dateFormat: "yyyy-mm-dd",
+         dateFormat: "yyyy-MM-dd",
          showHeader: false,
          showFooter: false,
          displayMode: "inline",
@@ -21,25 +22,30 @@
     let imagen = null;
     let desechable = 0;
     let tipo_articulo = '';
-    let fecha_compra = '';
+    let fecha_compra = null;
     let precio = 0;
     
 
 
-
+    
 
   async function handleSubmit() {
     
     try {
+      const tipoSeleccionado = tipos.find(tipo => tipo.id === tipo_articulo);
+      formData.append('tipo_articulo', tipoSeleccionado.id);
       const formData = new FormData();
       formData.append('nombre', nombre);
       formData.append('descripcion', descripcion);
       formData.append('cantidad', cantidad);
       formData.append('imagen', imagen);
       formData.append('desechable', desechable);
-      formData.append('fecha_compra',fecha_compra)
-      formData.append('precio',precio)
-      formData.append('tipo_articulo', tipo_articulo);
+      formData.append('fecha_compra', fecha_compra);
+      formData.append('precio',precio);
+      // formData.append('tipo_articulo', tipo_articulo);
+      formData.forEach(element => {
+        console.log(element);
+      });
 
       const response = await fetch('http://localhost:8001/articulo/articulo/', {
         method: 'POST',
@@ -55,6 +61,14 @@
       console.log(error);
     }
   }
+
+
+
+
+
+
+
+
 
 
   // Funcion para traer la lista de los tipos de articulos
@@ -113,27 +127,28 @@ fetch("http://localhost:8001/tipo/tipo/")
           <textarea class="textarea" placeholder="Descripcion" bind:value={descripcion}></textarea>
         </div>
         <div class="field">
-          <input class="input is-small" type="number" placeholder="Cantidad">
+          <input class="input is-small" type="number" placeholder="cantidad" bind:value={cantidad}>
         </div>
-
+        <div class="field">
         <div class="select is-primary">
-          <select>
+          <select bind:value={tipo_articulo}>
             <option>Tipos</option>
             {#each tipos as tipo}
-            <option>{tipo.nombre}</option>
+            <option value="{tipo.id}">{tipo.nombre}</option>
             {/each}
           </select>
         </div>
+        </div>
         <div class="field">
-          <input type="date" class="datetimepicker" placeholder="Fecha">
+          <input type="date" class="datetimepicker" placeholder="Fecha" bind:value={fecha_compra} >
         </div>
       <div class="field">
         <label class="checkbox">
-          <input type="checkbox" bind:value={desechable}>
+          <input type="checkbox" on:change={() => desechable = !desechable}>
         </label>
       </div>
       <div class="field">
-        <input type="text" placeholder="Precio">
+        <input type="number" placeholder="Precio" bind:value={precio}>
       </div>
 
 
@@ -153,7 +168,7 @@ fetch("http://localhost:8001/tipo/tipo/")
         </div>
       </div>
           <div class="field is-grouped is-justify-content-center">
-            <div class="control btn-cv  ">
+            <div class="control btn  ">
               <button class="button custom-button  is-normal is-rounded ">
                 <span>
               </span>
@@ -176,6 +191,11 @@ fetch("http://localhost:8001/tipo/tipo/")
     </section>
     <style>
 
+
+
+.btn{
+  margin-top: 20px;
+}
 
 
     </style>
