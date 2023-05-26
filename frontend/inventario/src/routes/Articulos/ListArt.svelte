@@ -4,6 +4,7 @@
 import { onMount } from "svelte";
 
 let articulos = [];
+let select_articulos=[];
 
 onMount(async () => {
 fetch("http://localhost:8001/articulo/articulo/")
@@ -27,6 +28,10 @@ fetch("http://localhost:8001/articulo/articulo/")
       <table class="table is-striped is-fullwidth" style="font-size: 12px; border-radius: 4px; border-radius: 4px;">
         <thead>
           <tr>
+            <th>
+              <input type="checkbox"   />
+            </th>
+            
             <th>
               <a class="button is-white has-text-grey is-flex is-align-items-center is-justify-content-start" style="font-size: 12px;" href="#">
                 <span class="mr-1">Name</span>
@@ -82,7 +87,9 @@ fetch("http://localhost:8001/articulo/articulo/")
           {#each articulos as articulo}
 
           <tr>
-
+            <td>
+              <input type="checkbox"  />
+            </td>
             <td class="py-5 pl-5">{articulo.nombre}</td>
             <td class="py-5 pl-5">{articulo.cantidad}</td>
             <td class="py-5 pl-5">{articulo.desechable}</td>

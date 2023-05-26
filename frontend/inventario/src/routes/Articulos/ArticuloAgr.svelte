@@ -1,7 +1,11 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import bulmaCalendar from "bulma-calendar";
-  import { element } from 'svelte/internal';
+    import { element } from 'svelte/internal';
+    import { SvelteToast } from '@zerodevx/svelte-toast'
+    import { toast } from '@zerodevx/svelte-toast'
+
+
 
     onMount(() => {
        const calendar = bulmaCalendar.attach(".datepicker", {
@@ -32,17 +36,19 @@
   async function handleSubmit() {
     
     try {
-      const tipoSeleccionado = tipos.find(tipo => tipo.id === tipo_articulo);
-      formData.append('tipo_articulo', tipoSeleccionado.id);
+      // const tipoSeleccionado = tipos.find(tipo => tipo.id === tipo_articulo);
+      // formData.append('tipo_articulo', tipoSeleccionado.id);
       const formData = new FormData();
       formData.append('nombre', nombre);
       formData.append('descripcion', descripcion);
       formData.append('cantidad', cantidad);
-      formData.append('imagen', imagen);
+      if (imagen){
+        formData.append('imagen', imagen);
+      }
       formData.append('desechable', desechable);
       formData.append('fecha_compra', fecha_compra);
       formData.append('precio',precio);
-      // formData.append('tipo_articulo', tipo_articulo);
+      formData.append('tipo_articulo', tipo_articulo);
       formData.forEach(element => {
         console.log(element);
       });
@@ -132,7 +138,7 @@ fetch("http://localhost:8001/tipo/tipo/")
         <div class="field">
         <div class="select is-primary">
           <select bind:value={tipo_articulo}>
-            <option>Tipos</option>
+            <option disabled selected>Tipos</option>
             {#each tipos as tipo}
             <option value="{tipo.id}">{tipo.nombre}</option>
             {/each}
@@ -169,7 +175,7 @@ fetch("http://localhost:8001/tipo/tipo/")
       </div>
           <div class="field is-grouped is-justify-content-center">
             <div class="control btn  ">
-              <button class="button custom-button  is-normal is-rounded ">
+              <button  class="button custom-button  is-normal is-rounded" onclick="{() => toast.push('Guardado')}">
                 <span>
               </span>
                 Guardar</button>
