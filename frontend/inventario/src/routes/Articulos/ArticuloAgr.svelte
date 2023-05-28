@@ -1,12 +1,56 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
+    import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
     import bulmaCalendar from "bulma-calendar";
-    import { element } from 'svelte/internal';
-    import { SvelteToast } from '@zerodevx/svelte-toast'
-    import { toast } from '@zerodevx/svelte-toast'
+
+    // Funcion para mostrar la notificacion de suceso
+    const showToast = () => {
+    const toast = toasts.add({
+      title: 'Agregado',
+      description: 'Agregado con exito",',
+      duration: 3000, // 0 or negative to avoid auto-remove
+      placement: 'bottom-right',
+      type: 'info',
+      theme: 'dark',
+      placement: 'bottom-right',
+			showProgress: true,
+      type: 'success',
+      theme: 'dark',
+      onClick: () => {},
+      onRemove: () => {},
+      // component: BootstrapToast, // allows to override toast component/template per toast
+    });
+
+  };
 
 
 
+  // Funcion para traer la lista de los tipos de articulos
+
+
+  let tipos = [];
+
+onMount(async () => {
+fetch("http://localhost:8001/tipo/tipo/")
+.then((response) => response.json())
+.then((data) => {
+  tipos = data;
+  console.log(tipos);
+  // console.log(data);
+})
+.catch((error) => {
+  console.log(error);
+  return [];
+});
+});
+
+
+
+
+
+
+
+  //Funcion para el componente calendario
     onMount(() => {
        const calendar = bulmaCalendar.attach(".datepicker", {
          startDate: new Date(),
@@ -19,6 +63,7 @@
      });
 
 
+//Variables del formulario
 
     let nombre = '';
     let descripcion = '';
@@ -32,7 +77,7 @@
 
 
     
-
+//Funcion para guardar el formulario
   async function handleSubmit() {
     
     try {
@@ -59,6 +104,7 @@
       });
 
       if (response.ok) {
+        toast.success('Successfully toasted!')
         console.log("El formulario se guardó exitosamente")
       } else {
         console.log("Ocurrió un error al guardar el formulario")
@@ -67,38 +113,6 @@
       console.log(error);
     }
   }
-
-
-
-
-
-
-
-
-
-
-  // Funcion para traer la lista de los tipos de articulos
-
-
-let tipos = [];
-
-onMount(async () => {
-fetch("http://localhost:8001/tipo/tipo/")
-.then((response) => response.json())
-.then((data) => {
-  tipos = data;
-  console.log(tipos);
-  // console.log(data);
-})
-.catch((error) => {
-  console.log(error);
-  return [];
-});
-});
-
-
-
-
 
 
     
@@ -137,7 +151,7 @@ fetch("http://localhost:8001/tipo/tipo/")
         </div>
         <div class="field">
         <div class="select is-primary">
-          <select bind:value={tipo_articulo}>
+          <select bind:value={tipo_articulo} >
             <option disabled selected>Tipos</option>
             {#each tipos as tipo}
             <option value="{tipo.id}">{tipo.nombre}</option>
@@ -150,6 +164,7 @@ fetch("http://localhost:8001/tipo/tipo/")
         </div>
       <div class="field">
         <label class="checkbox">
+          <label for="desechable">Desechable</label>
           <input type="checkbox" on:change={() => desechable = !desechable}>
         </label>
       </div>
@@ -175,12 +190,11 @@ fetch("http://localhost:8001/tipo/tipo/")
       </div>
           <div class="field is-grouped is-justify-content-center">
             <div class="control btn  ">
-              <button  class="button custom-button  is-normal is-rounded" onclick="{() => toast.push('Guardado')}">
-                <span>
-              </span>
-                Guardar</button>
+              <button   class="button custom-button  is-normal is-rounded" on:click={showToast}>Guardar</button>
             </div>
-    
+            <ToastContainer let:data={data}>
+              <FlatToast {data}  />
+            </ToastContainer>
           </div>
     
         </form>
@@ -196,7 +210,6 @@ fetch("http://localhost:8001/tipo/tipo/")
       </div>
     </section>
     <style>
-
 
 
 .btn{

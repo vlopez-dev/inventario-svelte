@@ -1,7 +1,28 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
+    import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
+
     let nombre = '';
     
+    // Funcion para mostrar la notificacion de suceso
+    const showToast = () => {
+    const toast = toasts.add({
+      title: 'Agregado',
+      description: 'Agregado con exito",',
+      duration: 3000, // 0 or negative to avoid auto-remove
+      placement: 'bottom-right',
+      type: 'info',
+      theme: 'dark',
+      placement: 'bottom-right',
+			showProgress: true,
+      type: 'success',
+      theme: 'dark',
+      onClick: () => {},
+      onRemove: () => {},
+      // component: BootstrapToast, // allows to override toast component/template per toast
+    });
+
+  };
     
 
   async function handleSubmit() {
@@ -58,7 +79,7 @@
      
           <div class="field is-grouped is-justify-content-center">
             <div class="control btn-cv  ">
-              <button class="button custom-button  is-normal is-rounded ">
+              <button class="button custom-button  is-normal is-rounded " on:click={showToast}>
                 <span>
               </span>
                 Guardar</button>
@@ -77,5 +98,8 @@
         <div class="column"></div>
     
       </div>
+      <ToastContainer let:data={data}>
+        <FlatToast {data}  />
+      </ToastContainer>
     </section>
     <style></style>

@@ -3,9 +3,13 @@
 
 import { onMount } from "svelte";
 
+
 let articulos = [];
 let select_articulos=[];
 
+
+
+//Funcion para consultar los articulos
 onMount(async () => {
 fetch("http://localhost:8001/articulo/articulo/")
 .then((response) => response.json())
@@ -19,6 +23,9 @@ fetch("http://localhost:8001/articulo/articulo/")
   return [];
 });
 });
+
+
+
 </script>
 
 
@@ -88,7 +95,7 @@ fetch("http://localhost:8001/articulo/articulo/")
 
           <tr>
             <td>
-              <input type="checkbox"  />
+              <input type="checkbox"   />
             </td>
             <td class="py-5 pl-5">{articulo.nombre}</td>
             <td class="py-5 pl-5">{articulo.cantidad}</td>
@@ -109,7 +116,7 @@ fetch("http://localhost:8001/articulo/articulo/")
           </tr>
           {/each}
             {:else}
-            <p>No hay áreas disponibles.</p>
+            <p>No hay articulos disponibles.</p>
             {/if}
         </tbody>
       </table>

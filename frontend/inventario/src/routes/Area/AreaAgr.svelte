@@ -1,5 +1,29 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
+import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
+
+
+  // Funcion para mostrar la notificacion de suceso
+  const showToast = () => {
+    const toast = toasts.add({
+      title: 'Agregado',
+      description: 'Agregado con exito",',
+      duration: 3000, // 0 or negative to avoid auto-remove
+      placement: 'bottom-right',
+      type: 'info',
+      theme: 'dark',
+      placement: 'bottom-right',
+			showProgress: true,
+      type: 'success',
+      theme: 'dark',
+      onClick: () => {},
+      onRemove: () => {},
+      // component: BootstrapToast, // allows to override toast component/template per toast
+    });
+
+  };
+
+
 let nombre = '';
 
   async function handleSubmit() {
@@ -14,13 +38,9 @@ let nombre = '';
 
       if (response.ok) {
         console.log("El formulario se guardó exitosamente")
-        // Puedes realizar alguna acción aquí, como redirigir a una página de éxito
       } else {
-        // Ocurrió un error al guardar el formulario
-        // Puedes manejar el error de acuerdo a tus necesidades
       }
     } catch (error) {
-      // Manejar errores de la solicitud
     }
   }
 
@@ -53,7 +73,7 @@ let nombre = '';
      
       <div class="field is-grouped is-justify-content-center">
         <div class="control btn-cv  ">
-          <button class="button custom-button  is-normal is-rounded ">
+          <button class="button custom-button  is-normal is-rounded " on:click={showToast}>
             <span>
           </span>
             Guardar</button>
@@ -64,7 +84,6 @@ let nombre = '';
     </form>
     <div class="column">
     <div class="container">
-
   </div>
 </div>
     </div>
@@ -72,5 +91,8 @@ let nombre = '';
     <div class="column"></div>
 
   </div>
+  <ToastContainer let:data={data}>
+    <FlatToast {data}  />
+  </ToastContainer>
 </section>
 <style></style>

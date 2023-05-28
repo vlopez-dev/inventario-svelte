@@ -20,7 +20,10 @@
   },
   "dependencies": {
     "bulma-calendar": "^6.1.19",
+    "svelte-french-toast": "^1.0.4-beta.0",
     "svelte-routing": "^1.6.0",
-    "svelte-spa-router": "^3.3.0"
+    "svelte-spa-router": "^3.3.0",
+    "svelte-toast": "^1.0.0",
+    "svelte-toasts": "^1.1.2"
   }
 }
