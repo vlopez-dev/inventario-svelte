@@ -14,7 +14,7 @@
     "bulma": "^0.9.4",
     "sass": "^1.53.0",
     "svelte": "^3.57.0",
-    "svelte-feather-icons": "^4.0.0",
+    "svelte-feather-icons": "^4.0.1",
     "svelte-preprocess": "^4.10.7",
     "vite": "^4.3.0"
   },

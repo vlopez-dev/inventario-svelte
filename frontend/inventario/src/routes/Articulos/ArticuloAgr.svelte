@@ -36,7 +36,6 @@ fetch("http://localhost:8001/tipo/tipo/")
 .then((data) => {
   tipos = data;
   console.log(tipos);
-  // console.log(data);
 })
 .catch((error) => {
   console.log(error);
@@ -67,12 +66,12 @@ fetch("http://localhost:8001/tipo/tipo/")
 
     let nombre = '';
     let descripcion = '';
-    let cantidad = 0;
+    let cantidad 
     let imagen = null;
     let desechable = 0;
     let tipo_articulo = '';
     let fecha_compra = null;
-    let precio = 0;
+    let precio 
     
 
 
@@ -147,12 +146,12 @@ fetch("http://localhost:8001/tipo/tipo/")
           <textarea class="textarea" placeholder="Descripcion" bind:value={descripcion}></textarea>
         </div>
         <div class="field">
-          <input class="input is-small" type="number" placeholder="cantidad" bind:value={cantidad}>
+          <input class="input" type="number" placeholder="cantidad" bind:value={cantidad} min="0">
         </div>
         <div class="field">
         <div class="select is-primary">
           <select bind:value={tipo_articulo} >
-            <option disabled selected>Tipos</option>
+            
             {#each tipos as tipo}
             <option value="{tipo.id}">{tipo.nombre}</option>
             {/each}
@@ -163,13 +162,15 @@ fetch("http://localhost:8001/tipo/tipo/")
           <input type="date" class="datetimepicker" placeholder="Fecha" bind:value={fecha_compra} >
         </div>
       <div class="field">
+       
+
         <label class="checkbox">
-          <label for="desechable">Desechable</label>
           <input type="checkbox" on:change={() => desechable = !desechable}>
+          Desechable
         </label>
       </div>
       <div class="field">
-        <input type="number" placeholder="Precio" bind:value={precio}>
+        <input class="input" type="number" placeholder="Precio" bind:value={precio} min="0">
       </div>
 
 
