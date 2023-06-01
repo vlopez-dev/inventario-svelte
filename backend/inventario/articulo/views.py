@@ -21,11 +21,11 @@ class ArticuloViewSet(viewsets.ModelViewSet):
             return response(serializer.data,status=201)
         return response(serializer.errors,status=400)
     
-    def deleteArticulo(self,request,pk):
-        articulo = Articulo.objects.get(id=pk)
-        articulo.delete()
+    
+    
+    def delte(self,request,id=None):
+        Articulo.objects.filter(id=id).delete()
         return response(status=204)
-
 class TipoViewSet(viewsets.ModelViewSet):
     queryset = Tipo.objects.all()
     serializer_class = TipoSerializer

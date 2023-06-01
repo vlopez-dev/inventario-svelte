@@ -17,11 +17,9 @@ function toggleSelectAll() {
     }));
   }
 
-  function delete_art(){
-    
+  function delteArticulo(id){
+    console.log(id)
   }
-
-
 
 
 //Funcion para consultar los articulos
@@ -40,6 +38,23 @@ fetch("http://localhost:8001/articulo/articulo/")
 });
 
 
+//Funcion para eliminar los articulos
+function deleteArticulo(id){
+
+  onMount(async () => {
+  fetch("http://localhost:8001/articulo/articulo/${id}", {method: "DELETE"})
+  .then((response) => response.json())
+  .then((data) => {
+    articulos = data;
+    console.log(articulos);
+    // console.log(data);
+  })
+  .catch((error) => {
+    console.log(error);
+    return [];
+  });
+  });
+}
 
 </script>
 
@@ -122,17 +137,21 @@ fetch("http://localhost:8001/articulo/articulo/")
             </td>
             <td class="py-5 pl-5">{articulo.nombre}</td>
             <td class="py-5 pl-5">{articulo.cantidad}</td>
-            <td class="py-5 pl-5">{articulo.desechable}</td>
+            <td class="py-5 pl-5">{articulo.desechable ? 'Sí' : 'No'}</td>
             <td class="py-5 pl-5">{articulo.tipo_articulo}</td>
             <td class="py-5 pl-5">{articulo.fecha_compra}</td>
             <td class="py-5 pl-5">{articulo.precio}</td>
             <td class="py-5 pl-5">
-              <a href="">
+              <button>
+              <a href="" >
               <Edit3Icon size="18" />
             </a>
+          </button>
+            <button on:click={() => deleteArticulo(articulo.id)}>
             <a href="">
               <DeleteIcon size="18" />
             </a>
+          </button>
             </td>
 
             
