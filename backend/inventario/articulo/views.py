@@ -8,21 +8,21 @@ from rest_framework import viewsets
 
 
 class ArticuloViewSet(viewsets.ModelViewSet):
-    
-    
+
+
     queryset = Articulo.objects.all()
     serializer_class = ArticuloSerializer
     template_name = 'articulo/index.html'
-    
+
     def post(self,request):
         serializer = ArticuloSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return response(serializer.data,status=201)
         return response(serializer.errors,status=400)
-    
-    
-    
+
+
+
     def delte(self,request,id=None):
         Articulo.objects.filter(id=id).delete()
         return response(status=204)

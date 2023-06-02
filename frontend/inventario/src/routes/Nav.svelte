@@ -1,6 +1,25 @@
 
 <script>
   export let item1,item2,item3,item4,item5,item6
+
+
+  window.onload = function() {
+  const burgerIcon = document.querySelector("#burger");
+  const navMenu = document.querySelector("#nav-links");
+  const navLinks = document.querySelectorAll(".navbar-item");
+
+  burgerIcon.addEventListener("click", () => {
+    navMenu.classList.toggle("is-active");
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      setTimeout(() => {
+        navMenu.classList.remove("is-active");
+      }, 500);
+    });
+  });
+};
 </script>
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
@@ -8,15 +27,15 @@
       <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
     </a>
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a id="burger"role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
+  <div id="nav-links" class="navbar-menu">
+    <div  class="navbar-start">
       <a href="#/" class="navbar-item">{item1}</a>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
