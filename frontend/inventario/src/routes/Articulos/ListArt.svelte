@@ -1,7 +1,31 @@
 
 <script>
 import { Edit3Icon,DeleteIcon } from 'svelte-feather-icons'
+import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
+
 import { onMount } from "svelte";
+
+ // Funcion para mostrar la notificacion de suceso
+ const showToast = () => {
+    const toast = toasts.add({
+      title: 'Eliminado',
+      description: 'Eliminado con exito",',
+      duration: 3000, // 0 or negative to avoid auto-remove
+      placement: 'bottom-right',
+      type: 'info',
+      theme: 'dark',
+      placement: 'bottom-right',
+			showProgress: true,
+      type: 'success',
+      theme: 'dark',
+      onClick: () => {},
+      onRemove: () => {},
+      // component: BootstrapToast, // allows to override toast component/template per toast
+    });
+
+  };
+
+
 
 
 let articulos = [];
@@ -39,22 +63,27 @@ fetch("http://localhost:8001/articulo/articulo/")
 
 
 //Funcion para eliminar los articulos
-function deleteArticulo(id){
-
-  onMount(async () => {
-  fetch("http://localhost:8001/articulo/articulo/${id}", {method: "DELETE"})
-  .then((response) => response.json())
-  .then((data) => {
-    articulos = data;
-    console.log(articulos);
-    // console.log(data);
-  })
-  .catch((error) => {
-    console.log(error);
-    return [];
-  });
-  });
-}
+function deleteArticulo(id, event) {
+  console.log("Se ejecuto al funcion")
+    fetch(`http://localhost:8001/articulo/articulo/${id}/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log('Artículo eliminado correctamente');
+        articulos = articulos.filter(articulo => articulo.id !== id);
+        toast.success('Successfully toasted!')
+      } else {
+        console.error('Error al eliminar el artículo');
+      }
+    })
+    .catch(error => {
+      console.error('Error en la solicitud de eliminación:', error);
+    });
+  }
 
 </script>
 
@@ -147,10 +176,11 @@ function deleteArticulo(id){
               <Edit3Icon size="18" />
             </a>
           </button>
-            <button on:click={() => deleteArticulo(articulo.id)}>
-            <a href="">
+            <button on:click={() =>{
+             deleteArticulo(articulo.id);
+             showToast();
+            }}>
               <DeleteIcon size="18" />
-            </a>
           </button>
             </td>
 
@@ -171,6 +201,9 @@ function deleteArticulo(id){
             {/if}
         </tbody>
       </table>
+      <ToastContainer let:data={data}>
+        <FlatToast {data}  />
+      </ToastContainer>
     </div>
   </div>
 </section>
