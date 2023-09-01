@@ -1,7 +1,31 @@
 
 <script>
 import { Edit3Icon,DeleteIcon } from 'svelte-feather-icons'
+import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
+
 import { onMount } from "svelte";
+
+ // Funcion para mostrar la notificacion de suceso
+ const showToast = () => {
+    const toast = toasts.add({
+      title: 'Eliminado',
+      description: 'Eliminado con exito",',
+      duration: 3000, // 0 or negative to avoid auto-remove
+      placement: 'bottom-right',
+      type: 'info',
+      theme: 'dark',
+      placement: 'bottom-right',
+			showProgress: true,
+      type: 'success',
+      theme: 'dark',
+      onClick: () => {},
+      onRemove: () => {},
+      // component: BootstrapToast, // allows to override toast component/template per toast
+    });
+
+  };
+
+
 
 
 let articulos = [];
@@ -39,29 +63,27 @@ fetch("http://localhost:8001/articulo/articulo/")
 
 
 //Funcion para eliminar los articulos
-function deleteArticulo(id){
-  fetch(`http://localhost:8001/articulo/articulo/${id}/`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  })
-  .then(response => {
-    if (response.ok) {
-      // Eliminación exitosa, puedes realizar alguna acción adicional si lo deseas
-      articulos = articulos.filter(articulo => articulo.id !== id);
-
-      console.log('Artículo eliminado correctamente');
-    } else {
-      // Error en la eliminación, maneja el error de acuerdo a tus necesidades
-      console.error('Error al eliminar el artículo');
-    }
-  })
-  .catch(error => {
-    // Error en la solicitud, maneja el error de acuerdo a tus necesidades
-    console.error('Error en la solicitud de eliminación:', error);
-  });
-}
+function deleteArticulo(id, event) {
+  console.log("Se ejecuto al funcion")
+    fetch(`http://localhost:8001/articulo/articulo/${id}/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log('Artículo eliminado correctamente');
+        articulos = articulos.filter(articulo => articulo.id !== id);
+        toast.success('Successfully toasted!')
+      } else {
+        console.error('Error al eliminar el artículo');
+      }
+    })
+    .catch(error => {
+      console.error('Error en la solicitud de eliminación:', error);
+    });
+  }
 
 </script>
 
@@ -174,6 +196,9 @@ function deleteArticulo(id){
             {/if}
         </tbody>
       </table>
+      <ToastContainer let:data={data}>
+        <FlatToast {data}  />
+      </ToastContainer>
     </div>
   </div>
 </section>
