@@ -40,19 +40,26 @@ fetch("http://localhost:8001/articulo/articulo/")
 
 //Funcion para eliminar los articulos
 function deleteArticulo(id){
-
-  onMount(async () => {
-  fetch("http://localhost:8001/articulo/articulo/${id}", {method: "DELETE"})
-  .then((response) => response.json())
-  .then((data) => {
-    articulos = data;
-    console.log(articulos);
-    // console.log(data);
+  fetch(`http://localhost:8001/articulo/articulo/${id}/`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
   })
-  .catch((error) => {
-    console.log(error);
-    return [];
-  });
+  .then(response => {
+    if (response.ok) {
+      // Eliminación exitosa, puedes realizar alguna acción adicional si lo deseas
+      articulos = articulos.filter(articulo => articulo.id !== id);
+
+      console.log('Artículo eliminado correctamente');
+    } else {
+      // Error en la eliminación, maneja el error de acuerdo a tus necesidades
+      console.error('Error al eliminar el artículo');
+    }
+  })
+  .catch(error => {
+    // Error en la solicitud, maneja el error de acuerdo a tus necesidades
+    console.error('Error en la solicitud de eliminación:', error);
   });
 }
 
@@ -143,14 +150,10 @@ function deleteArticulo(id){
             <td class="py-5 pl-5">{articulo.precio}</td>
             <td class="py-5 pl-5">
               <button>
-              <a href="" >
               <Edit3Icon size="18" />
-            </a>
           </button>
-            <button on:click={() => deleteArticulo(articulo.id)}>
-            <a href="">
+            <button on:click={() =>deleteArticulo(articulo.id)}>
               <DeleteIcon size="18" />
-            </a>
           </button>
             </td>
 

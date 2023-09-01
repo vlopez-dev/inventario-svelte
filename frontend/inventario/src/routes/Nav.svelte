@@ -45,13 +45,6 @@
         <div class="navbar-dropdown">
           <a href="#/AreaAgr" class="navbar-item">{item2}</a>
           <a href="#/ListArea" class="navbar-item">{item5}</a>
-          <a class="navbar-item">
-            Contact
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
         </div>
       </div>
       <div class="navbar-item has-dropdown is-hoverable">
@@ -63,10 +56,7 @@
           <a href="#/ArticuloAgr" class="navbar-item">{item3}</a>
           <a href="#/ListArt" class="navbar-item">{item4}</a>
           <a href="#/TiposAgr" class="navbar-item">{item6}</a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
+        
         </div>
 
         

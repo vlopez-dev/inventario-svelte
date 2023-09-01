@@ -60,7 +60,7 @@
             <div class="custom-message" id="message"></div>
     
           </div>
-          <form class="mt-6" action="" on:submit|preventDefault={handleSubmit}>
+          <form class="mt-6 form-contact" action="" on:submit|preventDefault={handleSubmit}>
           <div class="field">
             <label class="label custom-label">Nombre</label>
             <div class="control has-icons-left has-icons-right">
@@ -102,4 +102,17 @@
         <FlatToast {data}  />
       </ToastContainer>
     </section>
-    <style></style>
+    <style>
+
+      
+.form-contact{
+  width: 600px;
+  background-color: #d1d1e9;
+  padding: 50px;
+  background: #fffffe;
+  box-shadow:  20px 20px 60px #d9d9d8,
+              -20px -20px 60px #ffffff;
+              border-radius: 5px;
+
+}
+    </style>

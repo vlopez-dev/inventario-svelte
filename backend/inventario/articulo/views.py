@@ -1,34 +1,33 @@
 from urllib import response
 from django.shortcuts import render
-from .models import Articulo,Tipo
-from .serializer import ArticuloSerializer,TipoSerializer
+from .models import Articulo, Tipo
+from .serializer import ArticuloSerializer, TipoSerializer
 from rest_framework import viewsets
 
 # Create your views here.
 
 
 class ArticuloViewSet(viewsets.ModelViewSet):
-
-
     queryset = Articulo.objects.all()
     serializer_class = ArticuloSerializer
-    template_name = 'articulo/index.html'
+    template_name = "articulo/index.html"
 
-    def post(self,request):
+    def post(self, request):
         serializer = ArticuloSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return response(serializer.data,status=201)
-        return response(serializer.errors,status=400)
+            return response(serializer.data, status=201)
+        return response(serializer.errors, status=400)
 
-
-
-    def delte(self,request,id=None):
+    def delete(self, request, id=None):
         Articulo.objects.filter(id=id).delete()
         return response(status=204)
+
+
 class TipoViewSet(viewsets.ModelViewSet):
     queryset = Tipo.objects.all()
     serializer_class = TipoSerializer
-    template_name = 'tipo/index.html'
+    template_name = "tipo/index.html"
+
 
 # Create your views here.

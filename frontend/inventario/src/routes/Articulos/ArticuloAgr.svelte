@@ -3,6 +3,9 @@
     import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
     import bulmaCalendar from "bulma-calendar";
 
+
+    
+
     // Funcion para mostrar la notificacion de suceso
     const showToast = () => {
     const toast = toasts.add({
@@ -63,7 +66,6 @@ fetch("http://localhost:8001/tipo/tipo/")
 
 
 //Variables del formulario
-
     let nombre = '';
     let descripcion = '';
     let cantidad 
@@ -72,13 +74,12 @@ fetch("http://localhost:8001/tipo/tipo/")
     let tipo_articulo = '';
     let fecha_compra = null;
     let precio 
-    
 
 
-    
+
 //Funcion para guardar el formulario
   async function handleSubmit() {
-    
+
     try {
       // const tipoSeleccionado = tipos.find(tipo => tipo.id === tipo_articulo);
       // formData.append('tipo_articulo', tipoSeleccionado.id);
@@ -103,8 +104,10 @@ fetch("http://localhost:8001/tipo/tipo/")
       });
 
       if (response.ok) {
+
         toast.success('Successfully toasted!')
         console.log("El formulario se guardó exitosamente")
+
       } else {
         console.log("Ocurrió un error al guardar el formulario")
       }
@@ -120,14 +123,15 @@ fetch("http://localhost:8001/tipo/tipo/")
       <div class="columns is-multiline mx-2 my-6">
         <div class="column"></div>
         <div class="column is-one-quarter">
-          <div class="container">
+          <!-- <div class="container">
     
             <h4 class="title custom-title">Articulo</h4>
             <p class="custom-text"></p>
             <div class="custom-message" id="message"></div>
     
-          </div>
-          <form class="mt-6" action="" on:submit|preventDefault={handleSubmit}>
+          </div> -->
+          <form class="mt-6 form-contact" action="" on:submit|preventDefault={handleSubmit}>
+            
           <div class="field">
             <label class="label custom-label">Nombre</label>
             <div class="control has-icons-left has-icons-right">
@@ -217,5 +221,16 @@ fetch("http://localhost:8001/tipo/tipo/")
   margin-top: 20px;
 }
 
+
+.form-contact{
+  width: 600px;
+  background-color: #d1d1e9;
+  padding: 50px;
+  background: #fffffe;
+  box-shadow:  20px 20px 60px #d9d9d8,
+              -20px -20px 60px #ffffff;
+              border-radius: 5px;
+
+}
 
     </style>
