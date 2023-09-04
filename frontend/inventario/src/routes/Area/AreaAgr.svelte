@@ -2,8 +2,8 @@
   import { onMount, onDestroy } from "svelte";
   import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
 
-  let formData={
-    nombre: "",
+  function resetForm(){
+    nombre = '';
   }
 
   // Funcion para mostrar la notificacion de suceso
@@ -38,7 +38,7 @@
       });
 
       if (response.ok) {
-        nombre="";
+        resetForm()
         toast.success("Successfully toasted!");
         console.log("El formulario se guardó exitosamente");
       } else {
@@ -50,7 +50,7 @@
   <div class="columns is-multiline mx-2 my-6">
     <div class="column"></div>
 
-    <div class="column is-one-third">
+    <div class="column is-one-quarter">
       <div class="container">
         <h4 class="title custom-title">Area</h4>
         <p class="custom-text"></p>

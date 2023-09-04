@@ -15,8 +15,15 @@ class ArticuloViewSet(viewsets.ModelViewSet):
     def post(self, request):
         serializer = ArticuloSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return response(serializer.data, status=201)
+            nombre =serializer.validated_data.get('nombre')
+            try:
+                articulo_existe = Articulo.objects.get(nombre=nombre)
+                articulo_existe.cantidad += serializer.validated_data.get('cantidad')
+                serializer.save()
+            except Articulo.DoesNotExist:
+                serializer.save()
+
+                return response(serializer.data, status=201)
         return response(serializer.errors, status=400)
 
     def delete(self, request, id=None):

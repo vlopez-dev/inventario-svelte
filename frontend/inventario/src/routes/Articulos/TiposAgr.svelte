@@ -52,7 +52,7 @@
     <section class="hero is-fullheight custom-component  " >
       <div class="columns is-multiline mx-2 my-6">
         <div class="column"></div>
-        <div class="column is-one-quarter">
+        <div class="column is-one-fifth">
           <div class="container">
     
             <h4 class="title custom-title">Tipos de articulos</h4>

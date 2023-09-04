@@ -4,7 +4,17 @@
     import bulmaCalendar from "bulma-calendar";
 
 
-    
+
+    function resetForm() {
+      nombre = '';
+      descripcion = '';
+      cantidad = null;
+      imagen = null;
+      desechable = 0;
+      tipo_articulo = '';
+      fecha_compra = null;
+      precio = null;
+}
 
     // Funcion para mostrar la notificacion de suceso
     const showToast = () => {
@@ -104,7 +114,7 @@ fetch("http://localhost:8001/tipo/tipo/")
       });
 
       if (response.ok) {
-
+        resetForm();
         toast.success('Successfully toasted!')
         console.log("El formulario se guardó exitosamente")
 
@@ -122,7 +132,7 @@ fetch("http://localhost:8001/tipo/tipo/")
     <section class="hero is-fullheight custom-component  " >
       <div class="columns is-multiline mx-2 my-6">
         <div class="column"></div>
-        <div class="column is-one-quarter">
+        <div class="column is-two-fifths">
           <!-- <div class="container">
     
             <h4 class="title custom-title">Articulo</h4>
@@ -223,7 +233,7 @@ fetch("http://localhost:8001/tipo/tipo/")
 
 
 .form-contact{
-  width: 600px;
+  width: auto;
   background-color: #d1d1e9;
   padding: 50px;
   background: #fffffe;
